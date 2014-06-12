@@ -2,7 +2,8 @@ package com.example.flyingman.utility.lib.googleplay;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
-
+import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -30,6 +31,29 @@ public class GooglePlayDeviceTools {
 
 		} else {
 			Toast.makeText(ctx, "What the fxxk", Toast.LENGTH_SHORT).show();
+		}
+	}
+	
+	  
+	/**
+	 * 
+	 * @param ctx
+	 * @author Jeff
+	 * @date 2014-06-10
+	 */
+	public static boolean getServicesConnected(Activity activity) {
+		int resultCode =GooglePlayServicesUtil.isGooglePlayServicesAvailable(activity);
+
+		// If Google Play services is available
+		if (ConnectionResult.SUCCESS == resultCode) {
+			return true;
+		} else {
+			// Display an error dialog
+			Dialog dialog = GooglePlayServicesUtil.getErrorDialog(resultCode, activity, 0);
+			if (dialog != null) {
+				dialog.show();
+			}
+			return false;
 		}
 	}
 }
